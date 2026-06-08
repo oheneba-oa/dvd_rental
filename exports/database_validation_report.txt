@@ -1,0 +1,38 @@
+
+DATABASE VALIDATION REPORT
+==========================
+
+Database Name: dvdrental
+Database Host: localhost
+Database Port: 5432
+
+Connection Status:
+Successful
+
+Number of Base Tables Found:
+15
+
+Available Base Tables:
+actor, address, category, city, country, customer, film, film_actor, film_category, inventory, language, payment, rental, staff, store
+
+Critical Tables Checked:
+actor, address, category, city, country, customer, film, film_actor, film_category, inventory, language, payment, rental, staff, store
+
+Missing Critical Tables:
+None
+
+Row Count Output:
+tables/table_row_counts.csv
+
+Data Quality Output:
+tables/data_quality_summary.csv
+
+Summary:
+The PostgreSQL connection was successful. The DVD Rental database was inspected,
+critical base tables were validated, row counts were generated, and basic data
+quality checks were performed using sample records from each table.
+
+Note:
+Only base tables were selected for validation. Database views such as actor_info,
+film_list, customer_list, sales_by_store, and sales_by_film_category were excluded
+from this setup validation stage.

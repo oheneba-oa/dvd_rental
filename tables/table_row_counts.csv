@@ -1,0 +1,16 @@
+table_name,row_count
+actor,200
+address,603
+category,16
+city,600
+country,109
+customer,599
+film,1000
+film_actor,5462
+film_category,1000
+inventory,4581
+language,6
+payment,14596
+rental,16044
+staff,2
+store,2

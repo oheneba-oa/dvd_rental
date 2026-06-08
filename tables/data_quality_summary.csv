@@ -1,0 +1,16 @@
+table_name,total_rows,sample_rows_checked,missing_values_in_sample,duplicate_rows_in_sample
+actor,200,200,0,0
+address,603,603,4,0
+category,16,16,0,0
+city,600,600,0,0
+country,109,109,0,0
+customer,599,599,0,0
+film,1000,1000,0,0
+film_actor,5462,1000,0,0
+film_category,1000,1000,0,0
+inventory,4581,1000,0,0
+language,6,6,0,0
+payment,14596,1000,0,0
+rental,16044,1000,0,0
+staff,2,2,1,0
+store,2,2,0,0
