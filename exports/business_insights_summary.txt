@@ -1,0 +1,79 @@
+
+BUSINESS INSIGHTS SUMMARY
+=========================
+
+1. Customer Analytics
+---------------------
+The customer base was segmented into value groups using total revenue.
+The segment contributing the highest revenue is:
+
+Segment: High Value
+Total Revenue: 26009.63
+Number of Customers: 200
+
+This suggests that customer value is not evenly distributed. Management should
+protect high-value customers through loyalty offers, personalized promotions,
+and early access to popular titles.
+
+Churn Risk:
+The largest churn risk group is:
+
+Risk Group: Low Risk
+Number of Customers: 598
+
+Customers with long periods since their last payment should be targeted with
+reactivation campaigns.
+
+
+2. Revenue Optimization
+-----------------------
+The highest revenue film category is:
+
+Category: Sports
+Total Revenue: 4892.19
+Total Rentals: 1179
+
+The lowest revenue film category is:
+
+Category: Music
+Total Revenue: 3071.52
+Total Rentals: 830
+
+High-performing categories should receive more visibility in promotions, while
+low-performing categories should be reviewed for pricing, demand, and inventory
+allocation.
+
+
+3. Inventory and Operations
+---------------------------
+The best-performing store by revenue is:
+
+Store ID: 2.0
+Total Revenue: 30683.13
+Total Rentals: 8121.0
+Total Inventory Items: 2311.0
+
+Store-level differences should be investigated further to understand whether
+performance is driven by customer base, inventory selection, or rental activity.
+
+
+4. Innovation / Custom Analysis
+-------------------------------
+A simple recommendation strategy was developed using category revenue and rental
+performance. Categories with high revenue and high rental activity should be
+prioritized for customer recommendations and promotional campaigns.
+
+Recommended action:
+Use top-performing categories as the basis for a basic recommendation engine.
+For example, if a customer rents from a strong category, the company can suggest
+other films from the same high-performing category.
+
+
+Quantified Business Recommendations
+-----------------------------------
+1. Protect high-value customers with loyalty campaigns and targeted offers.
+2. Target high churn-risk customers with reactivation messages or discount offers.
+3. Promote the strongest film categories more aggressively.
+4. Review low-performing categories for possible pricing or inventory changes.
+5. Monitor slow-moving inventory and consider reducing duplicate copies.
+6. Compare store-level inventory efficiency to improve stock allocation.

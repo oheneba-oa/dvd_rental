@@ -1,0 +1,4 @@
+churn_risk,number_of_customers,average_revenue,total_revenue
+Low Risk,598,102.36829431438127,61216.24
+Medium Risk,1,95.8,95.8
+High Risk,0,,0.0
