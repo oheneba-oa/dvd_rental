@@ -1,0 +1,87 @@
+table_name,column_name,data_type
+actor,actor_id,integer
+actor,first_name,character varying
+actor,last_name,character varying
+actor,last_update,timestamp without time zone
+address,address_id,integer
+address,address,character varying
+address,address2,character varying
+address,district,character varying
+address,city_id,smallint
+address,postal_code,character varying
+address,phone,character varying
+address,last_update,timestamp without time zone
+category,category_id,integer
+category,name,character varying
+category,last_update,timestamp without time zone
+city,city_id,integer
+city,city,character varying
+city,country_id,smallint
+city,last_update,timestamp without time zone
+country,country_id,integer
+country,country,character varying
+country,last_update,timestamp without time zone
+customer,customer_id,integer
+customer,store_id,smallint
+customer,first_name,character varying
+customer,last_name,character varying
+customer,email,character varying
+customer,address_id,smallint
+customer,activebool,boolean
+customer,create_date,date
+customer,last_update,timestamp without time zone
+customer,active,integer
+film,film_id,integer
+film,title,character varying
+film,description,text
+film,release_year,integer
+film,language_id,smallint
+film,rental_duration,smallint
+film,rental_rate,numeric
+film,length,smallint
+film,replacement_cost,numeric
+film,rating,USER-DEFINED
+film,last_update,timestamp without time zone
+film,special_features,ARRAY
+film,fulltext,tsvector
+film_actor,actor_id,smallint
+film_actor,film_id,smallint
+film_actor,last_update,timestamp without time zone
+film_category,film_id,smallint
+film_category,category_id,smallint
+film_category,last_update,timestamp without time zone
+inventory,inventory_id,integer
+inventory,film_id,smallint
+inventory,store_id,smallint
+inventory,last_update,timestamp without time zone
+language,language_id,integer
+language,name,character
+language,last_update,timestamp without time zone
+payment,payment_id,integer
+payment,customer_id,smallint
+payment,staff_id,smallint
+payment,rental_id,integer
+payment,amount,numeric
+payment,payment_date,timestamp without time zone
+rental,rental_id,integer
+rental,rental_date,timestamp without time zone
+rental,inventory_id,integer
+rental,customer_id,smallint
+rental,return_date,timestamp without time zone
+rental,staff_id,smallint
+rental,last_update,timestamp without time zone
+staff,staff_id,integer
+staff,first_name,character varying
+staff,last_name,character varying
+staff,address_id,smallint
+staff,email,character varying
+staff,store_id,smallint
+staff,active,boolean
+staff,username,character varying
+staff,password,character varying
+staff,last_update,timestamp without time zone
+staff,picture,bytea
+store,store_id,integer
+store,manager_staff_id,smallint
+store,address_id,smallint
+store,last_update,timestamp without time zone
