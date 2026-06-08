@@ -1,0 +1,136 @@
+
+DATA RELATIONSHIP AND MERGE REPORT
+==================================
+
+Purpose:
+This report documents the merged datasets created for the DVD Rental analysis.
+
+1. Customer Revenue Dataset
+---------------------------
+Output file:
+merges/customer_revenue_dataset.csv
+
+Tables used:
+customer, payment
+
+Join key:
+customer.customer_id = payment.customer_id
+
+Join type:
+LEFT JOIN
+
+Reason:
+The customer table is the base table because the analysis focuses on customer value.
+A LEFT JOIN keeps all customers, including customers with no payment records.
+
+Rows created:
+599
+
+Columns created:
+11
+
+
+2. Film Category Revenue Dataset
+--------------------------------
+Output file:
+merges/film_category_revenue_dataset.csv
+
+Tables used:
+film, film_category, category, inventory, rental, payment
+
+Join path:
+film.film_id = film_category.film_id
+film_category.category_id = category.category_id
+film.film_id = inventory.film_id
+inventory.inventory_id = rental.inventory_id
+rental.rental_id = payment.rental_id
+
+Join type:
+Combination of INNER JOIN and LEFT JOIN
+
+Reason:
+INNER JOIN is used where category relationships are required.
+LEFT JOIN is used for rental and payment records so films can still appear
+even if some inventory copies have no rental or payment record.
+COUNT(DISTINCT rental.rental_id) is used to protect rental counts from possible
+duplication after joining payment records.
+
+Rows created:
+1000
+
+Columns created:
+10
+
+
+3. Store Performance Dataset
+----------------------------
+Output file:
+merges/store_performance_dataset.csv
+
+Tables used:
+store, customer, inventory, rental, payment
+
+Join keys:
+store.store_id = customer.store_id
+store.store_id = inventory.store_id
+inventory.inventory_id = rental.inventory_id
+rental.rental_id = payment.rental_id
+
+Join type:
+Grouped subqueries with LEFT JOIN
+
+Reason:
+Customer counts, inventory counts, rental counts, and revenue are calculated
+separately before joining to the store table. This avoids revenue duplication
+that can happen when multiple one-to-many relationships are joined directly
+in a single query.
+
+Rows created:
+2
+
+Columns created:
+5
+
+
+4. Inventory Turnover Dataset
+-----------------------------
+Output file:
+merges/inventory_turnover_dataset.csv
+
+Tables used:
+inventory, film, film_category, category, rental, payment
+
+Join keys:
+inventory.film_id = film.film_id
+film.film_id = film_category.film_id
+film_category.category_id = category.category_id
+inventory.inventory_id = rental.inventory_id
+rental.rental_id = payment.rental_id
+
+Join type:
+Combination of INNER JOIN and LEFT JOIN
+
+Reason:
+Inventory and film details are required for stock analysis.
+LEFT JOIN is used for rental and payment data so that slow-moving or unrented
+inventory can still be identified.
+COUNT(DISTINCT rental.rental_id) is used to protect rental counts from possible
+duplication after joining payment records.
+
+Rows created:
+4581
+
+Columns created:
+10
+
+
+Assumptions and Limitations:
+----------------------------
+1. Revenue is measured using the payment.amount field.
+2. Rental activity is measured using distinct rental_id counts.
+3. Customer value is estimated using total payment amount.
+4. Store performance is compared using revenue, rentals, customers, and inventory.
+5. Store performance uses grouped subqueries to avoid revenue overcounting.
+6. Some historical records may not fully represent current customer behaviour.
+7. This script creates analysis-ready datasets but does not yet make final
+   business recommendations. Those are developed in 4_analysis.py.
