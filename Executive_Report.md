@@ -16,6 +16,8 @@ The analysis was guided by four objectives. First, customer analytics was used t
 
 The workflow was implemented as a reproducible data pipeline. Docker and Docker Compose were used to manage the PostgreSQL and pgAdmin environment. Python scripts were used to validate the database, explore the data, create merged datasets, perform business analysis, generate charts, and produce outputs. A Streamlit dashboard was also developed to communicate insights through KPI cards, charts, tables, and multi-page navigation.
 
+The dashboard supports decision-making by allowing users to review key performance indicators, compare charts, and inspect the generated analysis tables in one interface.
+
 The analysis shows that total customer revenue is concentrated across value segments, with the high-value segment generating **26,009.63** in revenue compared with **15,329.62** from the low-value segment. Sports was the strongest film category, generating **4,892.19** from **1,179 rentals**, while Music was the lowest revenue category, generating **3,071.52** from **830 rentals**. Store performance was fairly balanced, with Store 1 generating **30,628.91** and Store 2 generating **30,683.13**. These findings suggest that management should focus on protecting high-value customers, promoting strong categories, reviewing weak categories, and monitoring slow-moving inventory.
 
 ---
@@ -132,7 +134,7 @@ These categories have strong revenue performance and should be used as the found
 Medium-priority categories included New, Action, and Foreign. These categories still performed well and can support secondary promotional campaigns.
 
 **Business implication:**
-The company does not need a complex machine learning system to begin improving recommendations. A simple category-based recommendation rule can be implemented immediately and later improved with customer-level rental history.
+The company can begin improving recommendations without immediately implementing a complex machine learning system. A simple category-based recommendation rule can be implemented immediately and later improved with customer-level rental history.
 
 ---
 
@@ -196,7 +198,7 @@ Churn risk was estimated using payment recency, not customer feedback or subscri
 * `1_setup_validate.py`: connects to PostgreSQL, lists tables, validates critical tables, counts rows, checks missing values and duplicates, and exports validation outputs.
 * `2_data_exploration.py`: performs schema inspection, missing value checks, descriptive statistics, outlier checks, and initial visualizations.
 * `3_data_relationships.py`: creates merged datasets for customer revenue, category revenue, store performance, and inventory turnover.
-* `4_analysis.py`: performs customer segmentation, churn risk analysis, revenue optimization, inventory analysis, and recommendation candidate analysis.
+* `4_analysis.py`: performs customer segmentation, churn risk analysis, revenue optimization, pricing insight, inventory analysis, and recommendation candidate analysis.
 * `5_dashboard.py`: presents the insights through a Streamlit dashboard.
 
 ### Output Folders
@@ -210,7 +212,7 @@ Churn risk was estimated using payment recency, not customer feedback or subscri
 
 1. Revenue is measured using the `payment.amount` field.
 2. Customer value is estimated using total payment amount.
-3. Rental activity is measured using rental count.
+3. Rental activity is measured using distinct rental count.
 4. Store performance is compared using customers, rentals, inventory, and revenue.
 5. Churn risk is estimated using days since last payment.
 6. Recommendation priority is based on category revenue and rental activity.
