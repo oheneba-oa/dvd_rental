@@ -10,6 +10,7 @@ Outputs:
 - tables/customer_segments.csv
 - tables/churn_risk_customers.csv
 - tables/revenue_by_category.csv
+- tables/pricing_insight.csv
 - tables/store_performance_analysis.csv
 - tables/slow_moving_inventory.csv
 - tables/recommendation_candidates.csv
@@ -65,7 +66,6 @@ print("Merged datasets loaded successfully.")
 # Customers are grouped into value segments based on total revenue.
 # This helps the business identify high-value, medium-value,
 # and low-value customers.
-
 customer_df["customer_name"] = (
     customer_df["first_name"].astype(str) + " " + customer_df["last_name"].astype(str)
 )
@@ -110,7 +110,6 @@ print("Customer segmentation completed.")
 # ------------------------------------------------------------
 # A customer is considered at higher churn risk if their last payment
 # was far from the most recent payment date in the dataset.
-
 customer_df["last_payment_date"] = pd.to_datetime(
     customer_df["last_payment_date"],
     errors="coerce"
@@ -163,7 +162,6 @@ print("Churn risk analysis completed.")
 # ------------------------------------------------------------
 # This identifies which film categories generate the most revenue
 # and which ones may need promotion or inventory review.
-
 revenue_by_category = (
     film_category_df
     .groupby("category")
@@ -198,13 +196,19 @@ print("Revenue by category analysis completed.")
 # ------------------------------------------------------------
 # This checks whether higher rental rates are associated with
 # stronger or weaker rental activity.
-
 pricing_insight = film_category_df[
     ["title", "category", "rental_rate", "total_rentals", "total_revenue"]
 ].copy()
 
-pricing_insight["revenue_per_rental"] = pricing_insight["total_revenue"] / pricing_insight["total_rentals"]
-pricing_insight["revenue_per_rental"] = pricing_insight["revenue_per_rental"].replace([float("inf")], 0).fillna(0)
+pricing_insight["revenue_per_rental"] = (
+    pricing_insight["total_revenue"] / pricing_insight["total_rentals"]
+)
+
+pricing_insight["revenue_per_rental"] = (
+    pricing_insight["revenue_per_rental"]
+    .replace([float("inf")], 0)
+    .fillna(0)
+)
 
 pricing_insight.to_csv("tables/pricing_insight.csv", index=False)
 
@@ -216,7 +220,6 @@ print("Pricing insight table created.")
 # ------------------------------------------------------------
 # This compares store performance based on customers, rentals,
 # inventory size, and revenue.
-
 store_df["revenue_per_inventory_item"] = (
     store_df["total_revenue"] / store_df["total_inventory_items"]
 )
@@ -246,7 +249,6 @@ print("Store performance analysis completed.")
 # ------------------------------------------------------------
 # Slow-moving inventory refers to film copies with very low rental counts.
 # These titles may need promotion, replacement, or reduced stock levels.
-
 slow_moving_inventory = (
     inventory_df
     .sort_values(by=["rental_count", "total_revenue"], ascending=[True, True])
@@ -274,7 +276,6 @@ print("Slow-moving inventory analysis completed.")
 # ------------------------------------------------------------
 # This identifies film categories with strong revenue and rental activity.
 # These categories can be recommended more aggressively to customers.
-
 recommendation_candidates = revenue_by_category.copy()
 
 recommendation_candidates["recommendation_priority"] = pd.qcut(
@@ -352,8 +353,8 @@ The largest churn risk group is:
 Risk Group: {highest_churn_group["churn_risk"]}
 Number of Customers: {highest_churn_group["number_of_customers"]}
 
-Customers with long periods since their last payment should be targeted with
-reactivation campaigns.
+Customers with longer periods since their last payment should be monitored and,
+where necessary, targeted with reactivation campaigns.
 
 
 2. Revenue Optimization
@@ -403,7 +404,7 @@ other films from the same high-performing category.
 Quantified Business Recommendations
 -----------------------------------
 1. Protect high-value customers with loyalty campaigns and targeted offers.
-2. Target high churn-risk customers with reactivation messages or discount offers.
+2. Monitor customers with longer payment gaps and use reactivation offers where necessary.
 3. Promote the strongest film categories more aggressively.
 4. Review low-performing categories for possible pricing or inventory changes.
 5. Monitor slow-moving inventory and consider reducing duplicate copies.
