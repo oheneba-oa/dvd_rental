@@ -34,6 +34,9 @@ DB_USER = os.getenv("POSTGRES_USER")
 DB_PASSWORD = os.getenv("POSTGRES_PASSWORD")
 DB_NAME = os.getenv("POSTGRES_DB")
 DB_PORT = os.getenv("POSTGRES_PORT", "5432")
+
+# The Python scripts run on the local machine, so localhost is used
+# to connect to the PostgreSQL container through the exposed port.
 DB_HOST = "localhost"
 
 
@@ -67,6 +70,8 @@ def save_chart(filename):
     plt.close()
 
 
+# A try-except block is used so that database connection or query errors
+# are displayed clearly instead of stopping the script without context.
 try:
     with engine.connect() as connection:
         print("Database connection successful.")
@@ -74,6 +79,8 @@ try:
         # ------------------------------------------------------------
         # 5. Get all base tables
         # ------------------------------------------------------------
+        # This query retrieves only real/base tables from the public schema.
+        # Views are excluded because this stage focuses on the original tables.
         tables_query = """
         SELECT table_name
         FROM information_schema.tables
@@ -91,6 +98,8 @@ try:
         # ------------------------------------------------------------
         # 6. Schema and data type inspection
         # ------------------------------------------------------------
+        # This section records each table's column names and data types.
+        # It helps document the structure of the database before analysis.
         schema_results = []
 
         for table in table_names:
@@ -119,10 +128,15 @@ try:
         # ------------------------------------------------------------
         # 7. Missing values check
         # ------------------------------------------------------------
+        # A sample of up to 1000 rows is checked from each table to identify
+        # missing values without loading very large tables unnecessarily.
         missing_results = []
 
         for table in table_names:
-            df = pd.read_sql(f'SELECT * FROM "{table}" LIMIT 1000;', connection)
+            df = pd.read_sql(
+                f'SELECT * FROM "{table}" LIMIT 1000;',
+                connection
+            )
 
             for column in df.columns:
                 missing_results.append({
@@ -140,6 +154,8 @@ try:
         # ------------------------------------------------------------
         # 8. Descriptive statistics for key numeric tables
         # ------------------------------------------------------------
+        # Descriptive statistics are calculated only for selected numeric tables
+        # because these tables contain revenue, rental, inventory, and film metrics.
         key_numeric_tables = ["payment", "film", "rental", "inventory"]
 
         descriptive_results = []
@@ -169,6 +185,8 @@ try:
         # ------------------------------------------------------------
         # 9. Simple outlier check using IQR method
         # ------------------------------------------------------------
+        # The IQR method identifies possible outliers by comparing values
+        # against lower and upper statistical boundaries.
         outlier_results = []
 
         for table in key_numeric_tables:
@@ -204,6 +222,7 @@ try:
         # ------------------------------------------------------------
         # 10. Visualization 1: Monthly revenue trend
         # ------------------------------------------------------------
+        # This chart shows how revenue changes over time by grouping payments by month.
         monthly_revenue_query = """
         SELECT
             DATE_TRUNC('month', payment_date) AS month,
@@ -233,6 +252,7 @@ try:
         # ------------------------------------------------------------
         # 11. Visualization 2: Top film categories by revenue
         # ------------------------------------------------------------
+        # This chart identifies which film categories generate the highest revenue.
         category_revenue_query = """
         SELECT
             c.name AS category,
@@ -265,6 +285,7 @@ try:
         # ------------------------------------------------------------
         # 12. Visualization 3: Top 10 customers by revenue
         # ------------------------------------------------------------
+        # This chart identifies the customers contributing the most revenue.
         top_customers_query = """
         SELECT
             CONCAT(c.first_name, ' ', c.last_name) AS customer_name,
@@ -294,10 +315,12 @@ try:
         # ------------------------------------------------------------
         # 13. Visualization 4: Number of rentals by store
         # ------------------------------------------------------------
+        # This chart compares rental activity between stores.
+        # DISTINCT is used for consistency with later analysis scripts.
         rentals_by_store_query = """
         SELECT
             s.store_id,
-            COUNT(r.rental_id) AS total_rentals
+            COUNT(DISTINCT r.rental_id) AS total_rentals
         FROM rental r
         JOIN inventory i ON r.inventory_id = i.inventory_id
         JOIN store s ON i.store_id = s.store_id
