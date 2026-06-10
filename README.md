@@ -19,7 +19,7 @@ DVD_rental/
 ├── .gitattributes
 ├── .gitignore
 ├── docker-compose.yml
-├── Dockerfile
+├── dockerfile
 ├── requirements.txt
 │
 ├── 1_setup_validate.py
