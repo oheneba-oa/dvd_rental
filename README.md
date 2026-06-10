@@ -6,7 +6,7 @@ This is an industry-based analytics project that uses the PostgreSQL DVD Rental 
 
 The objective is to build a complete analytics workflow that covers database setup, validation, exploratory data analysis, data integration, advanced business analysis, dashboard development, and executive reporting.
 
-The project was developed using Docker, PostgreSQL, Python, Pandas, SQLAlchemy, Matplotlib, Seaborn, and Streamlit.
+The project was developed using Docker, PostgreSQL, Python, Pandas, SQLAlchemy, Matplotlib, Seaborn, Plotly, and Streamlit.
 
 ---
 
@@ -19,7 +19,7 @@ DVD_rental/
 ├── .gitattributes
 ├── .gitignore
 ├── docker-compose.yml
-├── dockerfile
+├── Dockerfile
 ├── requirements.txt
 │
 ├── 1_setup_validate.py
@@ -29,6 +29,7 @@ DVD_rental/
 ├── 5_dashboard.py
 │
 ├── Architecture_Diagram.md
+├── Business_Problem_Definition.md
 ├── Data_Description.md
 ├── Executive_Report.md
 ├── README.md
@@ -334,7 +335,26 @@ The dashboard includes:
 
 ---
 
-## 10. Analytical Areas Covered
+## 10. Business Problem Definition
+
+The business problem definition is provided in:
+
+```text
+Business_Problem_Definition.md
+```
+
+This file covers the business context, analytical challenge, four analytical objectives, justifications, high-level analytical approach, and eight analytical questions grouped under:
+
+* Customer Intelligence
+* Revenue Optimization
+* Inventory and Operations
+* Innovation or Custom Analysis
+
+It also includes a dataset note explaining that the restored DVD Rental sample database contains two store records, although the question scenario refers to three physical stores.
+
+---
+
+## 11. Analytical Areas Covered
 
 The project covers four main analytical themes.
 
@@ -368,7 +388,7 @@ The project covers four main analytical themes.
 
 ---
 
-## 11. Key Findings Summary
+## 12. Key Findings Summary
 
 The analysis showed that the high-value customer segment generated 26,009.63 in revenue, compared with 15,329.62 from the low-value segment. Sports was the strongest film category, generating 4,892.19 from 1,179 rentals. Music was the lowest revenue category, generating 3,071.52 from 830 rentals.
 
@@ -378,7 +398,7 @@ The slow-moving inventory analysis identified film copies with very low rental c
 
 ---
 
-## 12. Main Recommendations
+## 13. Main Recommendations
 
 1. Protect high-value customers through loyalty offers and personalized promotions.
 2. Increase engagement among active customers to improve repeat rentals.
@@ -390,15 +410,17 @@ The slow-moving inventory analysis identified film copies with very low rental c
 
 ---
 
-## 13. Ethical Considerations and Limitations
+## 14. Ethical Considerations and Limitations
 
 The dataset contains customer-related information, including names and emails. In a real business environment, such information should be handled responsibly and should not be exposed unnecessarily in public dashboards or reports.
 
 The analysis is based on historical transaction data and does not include external factors such as competitor activity, customer satisfaction, marketing campaigns, or streaming service trends. Churn risk was estimated using payment recency, not direct customer feedback. The recommendation model is simple and category-based, so future improvements could include customer-level behavioural modelling.
 
+The question scenario refers to three physical stores. However, the restored PostgreSQL DVD Rental sample database used for this project contains two store records. Therefore, store-level analysis is based on the two stores available in the database.
+
 ---
 
-## 14. Notes on Reproducibility
+## 15. Notes on Reproducibility
 
 The project is reproducible because:
 
@@ -412,6 +434,6 @@ The project is reproducible because:
 
 ---
 
-## 15. Author
+## 16. Author
 
 Name: Oheneba Oduro-Asare
