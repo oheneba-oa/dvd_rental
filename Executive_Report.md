@@ -2,9 +2,9 @@
 
 ## DVD Rental Business Analytics Project
 
-**Project:** Industry-Based DVD Rental Analytics
-**Database:** PostgreSQL DVD Rental Database
-**Tools Used:** Docker, PostgreSQL, Python, Pandas, SQLAlchemy, Matplotlib, Seaborn, Streamlit
+**Name:** Oheneba Oduro-Asare
+**Roll Number:** 2000250072
+**Course:** DSA5102 Big Data Management
 
 ---
 
