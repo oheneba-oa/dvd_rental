@@ -217,7 +217,7 @@ This relationship was used to compare customer distribution across stores.
 
 ---
 
-## 4. Merged Datasets Created
+## 4. Merged and Derived Datasets Created
 
 ### customer_revenue_dataset.csv
 
@@ -291,6 +291,8 @@ Main fields:
 * `total_rentals`
 * `total_revenue`
 
+Customer counts, inventory counts, rental counts, and revenue were calculated in separate grouped queries before being combined to avoid overcounting caused by one-to-many joins.
+
 ---
 
 ### inventory_turnover_dataset.csv
@@ -316,6 +318,48 @@ Main fields:
 * `rental_count`
 * `total_revenue`
 * `last_rental_date`
+
+---
+
+### pricing_insight.csv
+
+This dataset was derived from the film category revenue dataset.
+
+Main purpose:
+
+* compare rental rate with rental performance
+* calculate revenue per rental
+* support pricing review
+
+Main fields:
+
+* `title`
+* `category`
+* `rental_rate`
+* `total_rentals`
+* `total_revenue`
+* `revenue_per_rental`
+
+---
+
+### recommendation_candidates.csv
+
+This dataset was derived from the revenue by category analysis.
+
+Main purpose:
+
+* identify high-performing categories
+* assign recommendation priority
+* support category-based promotional recommendations
+
+Main fields:
+
+* `category`
+* `total_revenue`
+* `total_rentals`
+* `average_payment`
+* `average_rental_rate`
+* `recommendation_priority`
 
 ---
 
@@ -357,7 +401,7 @@ SUM(payment.amount) per customer
 Rental activity was measured using:
 
 ```text
-COUNT(rental.rental_id)
+COUNT(DISTINCT rental.rental_id)
 ```
 
 ### Churn Risk
