@@ -28,7 +28,8 @@ DB_PASSWORD = os.getenv("POSTGRES_PASSWORD")
 DB_NAME = os.getenv("POSTGRES_DB")
 DB_PORT = os.getenv("POSTGRES_PORT", "5432")
 
-# Since Python is running from your laptop, localhost is used.
+# The Python scripts run on the local machine, so localhost is used
+# to connect to the PostgreSQL container through the exposed port.
 DB_HOST = "localhost"
 
 
@@ -75,6 +76,9 @@ os.makedirs("tables", exist_ok=True)
 # ------------------------------------------------------------
 # 5. Connect and validate database
 # ------------------------------------------------------------
+
+# A try-except block is used so that connection or query errors
+# are displayed clearly instead of stopping the script without context.
 try:
     with engine.connect() as connection:
         print("Database connection successful.")
