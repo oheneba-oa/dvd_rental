@@ -2,7 +2,7 @@
 
 ## 1. Project Overview
 
-This project is an industry-based analytics project  which uses the PostgreSQL DVD Rental database to analyse customer behaviour, revenue performance, inventory usage, store performance, and recommendation opportunities.
+This is an industry-based analytics project that uses the PostgreSQL DVD Rental database to analyse customer behaviour, revenue performance, inventory usage, store performance, and recommendation opportunities.
 
 The objective is to build a complete analytics workflow that covers database setup, validation, exploratory data analysis, data integration, advanced business analysis, dashboard development, and executive reporting.
 
@@ -13,9 +13,11 @@ The project was developed using Docker, PostgreSQL, Python, Pandas, SQLAlchemy, 
 ## 2. Project Structure
 
 ```text
-Big_Data_Management_Project/
+DVD_rental/
 │
-├── .env
+├── .env.example
+├── .gitattributes
+├── .gitignore
 ├── docker-compose.yml
 ├── Dockerfile
 ├── requirements.txt
@@ -26,13 +28,13 @@ Big_Data_Management_Project/
 ├── 4_analysis.py
 ├── 5_dashboard.py
 │
+├── Architecture_Diagram.md
+├── Data_Description.md
 ├── Executive_Report.md
 ├── README.md
 │
 ├── data/
 │   ├── backups/
-│   ├── postgres/
-│   ├── pgadmin/
 │   └── uploads/
 │
 ├── exports/
@@ -40,6 +42,8 @@ Big_Data_Management_Project/
 ├── merges/
 └── results/
 ```
+
+Note: `data/postgres/` and `data/pgadmin/` are generated locally by Docker and are ignored using `.gitignore`. The actual `.env` file is also ignored and should not be uploaded to GitHub.
 
 ---
 
@@ -70,7 +74,9 @@ Big_Data_Management_Project/
 
 ## 4. Environment Variables
 
-The project uses a `.env` file to store database and pgAdmin connection details.
+The repository includes a `.env.example` file. Create a local `.env` file using the same variables before running the project.
+
+Example environment variables:
 
 ```env
 POSTGRES_USER=student
@@ -82,6 +88,8 @@ PGADMIN_EMAIL=admin@admin.com
 PGADMIN_PASSWORD=admin
 PGADMIN_PORT=8080
 ```
+
+The `.env` file is used by Docker Compose and the Python scripts to connect to PostgreSQL and pgAdmin. The `.env` file should remain local and should not be committed to GitHub.
 
 ---
 
@@ -104,8 +112,8 @@ docker ps
 Expected containers:
 
 ```text
-bdm_postgres
-bdm_pgadmin
+dvd_postgres
+dvd_pgadmin
 ```
 
 pgAdmin can be opened in the browser using:
@@ -128,7 +136,7 @@ Password: admin
 In pgAdmin, register the PostgreSQL server using the following details:
 
 ```text
-Name: BDM Postgres
+Name: DVD Postgres
 Host name/address: postgres
 Port: 5432
 Maintenance database: dvdrental
@@ -276,7 +284,7 @@ exports/data_relationships_report.txt
 python 4_analysis.py
 ```
 
-This script performs customer segmentation, churn risk analysis, revenue optimization, store performance analysis, slow-moving inventory analysis, and recommendation candidate analysis.
+This script performs customer segmentation, churn risk analysis, revenue optimization, pricing insight, store performance analysis, slow-moving inventory analysis, and recommendation candidate analysis.
 
 Main outputs:
 
@@ -394,7 +402,7 @@ The analysis is based on historical transaction data and does not include extern
 
 The project is reproducible because:
 
-* Database credentials are stored in `.env`
+* Database credentials are defined using environment variables, with `.env.example` provided as a template
 * Services are managed using Docker Compose
 * Python dependencies are listed in `requirements.txt`
 * Scripts are numbered and should be run in order
