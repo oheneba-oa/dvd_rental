@@ -4,7 +4,11 @@
 
 ## 1. System Architecture Overview
 
-The project follows a structured data analytics pipeline. The DVD Rental database is restored into PostgreSQL using Docker. Python scripts then connect to the database, validate the tables, perform exploration, create merged datasets, generate business insights, and feed the final outputs into a Streamlit dashboard and executive report.
+The project follows a structured data analytics pipeline. The DVD Rental backup file is restored into PostgreSQL using Docker. Python scripts then connect to the database, validate the tables, perform exploratory data analysis, create merged datasets, generate business insights, and feed the final outputs into a Streamlit dashboard and executive report.
+
+The architecture is designed to make the project reproducible, organized, and easy to follow from database setup to final business recommendations.
+
+---
 
 ## 2. Architecture Flow
 
@@ -95,11 +99,15 @@ The project follows a structured data analytics pipeline. The DVD Rental databas
               |
               v
 +-----------------------------+
-| Executive Report            |
-| README                      |
-| Business Recommendations    |
+| Final Documentation         |
+| - Executive Report          |
+| - Data Description          |
+| - README                    |
+| - Business Recommendations  |
 +-----------------------------+
 ```
+
+---
 
 ## 3. Main Components
 
@@ -123,7 +131,7 @@ Python is used for database validation, exploratory analysis, data integration, 
 
 The project saves generated outputs into organized folders:
 
-* `tables/`: validation summaries, descriptive statistics, analysis tables
+* `tables/`: validation summaries, descriptive statistics, and analysis tables
 * `merges/`: merged datasets used for analysis
 * `results/`: generated charts and visualizations
 * `exports/`: written reports and business summaries
@@ -131,6 +139,8 @@ The project saves generated outputs into organized folders:
 ### Streamlit Dashboard
 
 Streamlit presents the final insights in an interactive web dashboard with multiple pages, KPI cards, charts, and summary tables.
+
+---
 
 ## 4. Data Movement Summary
 
@@ -142,6 +152,10 @@ Streamlit presents the final insights in an interactive web dashboard with multi
 6. Streamlit reads the generated CSV files and presents the dashboard.
 7. The executive report summarizes the key findings and recommendations.
 
+---
+
 ## 5. Reproducibility
 
-The architecture supports reproducibility because the services are defined in `docker-compose.yml`, credentials are stored in `.env`, dependencies are listed in `requirements.txt`, and the scripts are numbered in the order they should be executed.
+The architecture supports reproducibility because the services are defined in `docker-compose.yml`, dependencies are listed in `requirements.txt`, and the scripts are numbered in the order they should be executed.
+
+The repository includes `.env.example` as a template for environment variables. A local `.env` file should be created from this template when running the project. Docker-generated folders such as `data/postgres/` and `data/pgadmin/` are excluded from version control using `.gitignore`.
