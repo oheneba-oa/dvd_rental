@@ -1,0 +1,4 @@
+activity_group,number_of_customers,total_activity,total_revenue,average_revenue,average_payment
+Low Activity,200,15329.62,15329.62,76.6481,3.935222659741316
+Medium Activity,199,19972.79,19972.79,100.36577889447237,4.185810300472439
+High Activity,200,26009.63,26009.63,130.04815,4.469366160112386
