@@ -18,9 +18,8 @@ from sqlalchemy import create_engine, text
 from dotenv import load_dotenv
 
 
-# ------------------------------------------------------------
-# 1. Load database details from the .env file
-# ------------------------------------------------------------
+
+# Load database details from the .env file
 load_dotenv()
 
 DB_USER = os.getenv("POSTGRES_USER")
@@ -28,14 +27,12 @@ DB_PASSWORD = os.getenv("POSTGRES_PASSWORD")
 DB_NAME = os.getenv("POSTGRES_DB")
 DB_PORT = os.getenv("POSTGRES_PORT", "5432")
 
-# The Python scripts run on the local machine, so localhost is used
-# to connect to the PostgreSQL container through the exposed port.
+
 DB_HOST = "localhost"
 
 
-# ------------------------------------------------------------
-# 2. Create database connection
-# ------------------------------------------------------------
+
+# Create database connection
 connection_url = (
     f"postgresql+psycopg2://{DB_USER}:{DB_PASSWORD}"
     f"@{DB_HOST}:{DB_PORT}/{DB_NAME}"
@@ -44,9 +41,8 @@ connection_url = (
 engine = create_engine(connection_url)
 
 
-# ------------------------------------------------------------
-# 3. Define important tables expected in the DVD Rental database
-# ------------------------------------------------------------
+
+# Define important tables expected in the DVD Rental database
 critical_tables = [
     "actor",
     "address",
@@ -66,19 +62,14 @@ critical_tables = [
 ]
 
 
-# ------------------------------------------------------------
-# 4. Create output folders if they do not exist
-# ------------------------------------------------------------
+
+# Create output folders if they do not exist
 os.makedirs("exports", exist_ok=True)
 os.makedirs("tables", exist_ok=True)
 
 
-# ------------------------------------------------------------
-# 5. Connect and validate database
-# ------------------------------------------------------------
 
-# A try-except block is used so that connection or query errors
-# are displayed clearly instead of stopping the script without context.
+# Connect and validate database
 try:
     with engine.connect() as connection:
         print("Database connection successful.")
@@ -111,9 +102,10 @@ try:
         else:
             print("\nAll critical tables are present.")
 
-        # ------------------------------------------------------------
-        # 6. Count rows in each table
-        # ------------------------------------------------------------
+        
+    
+        # Count rows in each table
+        
         row_counts = []
 
         for table in available_tables:
@@ -130,9 +122,9 @@ try:
 
         print("\nRow counts saved to tables/table_row_counts.csv")
 
-        # ------------------------------------------------------------
-        # 7. Basic data quality checks
-        # ------------------------------------------------------------
+        
+        # Basic data quality checks
+        
         quality_results = []
 
         for table in available_tables:
@@ -175,9 +167,9 @@ try:
 
         print("Data quality summary saved to tables/data_quality_summary.csv")
 
-        # ------------------------------------------------------------
-        # 8. Write validation report
-        # ------------------------------------------------------------
+        
+        # Write validation report
+        
         report = f"""
 DATABASE VALIDATION REPORT
 ==========================
