@@ -32,6 +32,7 @@ DVD_rental/
 ├── Business_Problem_Definition.md
 ├── Data_Description.md
 ├── Executive_Report.md
+├── DVD_Rental_Executive_Report.pdf
 ├── README.md
 │
 ├── data/
@@ -197,9 +198,18 @@ store
 
 ---
 
-## 8. Installing Python Requirements
+## 8. Python Environment and Requirements
 
-Install the required Python libraries using:
+A separate Conda environment was used for this project to keep the project dependencies isolated from other Python installations. This is recommended, but it is not compulsory. Users may use any Python 3.8+ environment as long as the packages in `requirements.txt` are installed.
+
+To create and activate a Conda environment, run:
+
+```bash
+conda create -n dvd_rental_ python=3.11
+conda activate dvd_rental_
+```
+
+Then install the required Python libraries:
 
 ```bash
 python -m pip install -r requirements.txt
@@ -211,11 +221,19 @@ If `psycopg2` is missing, install it directly using:
 python -m pip install psycopg2-binary
 ```
 
+After installing the requirements, run all scripts from the main project folder.
+
 ---
 
 ## 9. How to Run the Project
 
-Run the scripts in the following order.
+Before running the scripts, make sure Docker is running and the PostgreSQL container is active:
+
+```bash
+docker compose up -d
+```
+
+Then run the scripts in the following order.
 
 ### Step 1: Database Validation
 
@@ -285,13 +303,15 @@ exports/data_relationships_report.txt
 python 4_analysis.py
 ```
 
-This script performs customer segmentation, churn risk analysis, revenue optimization, pricing insight, store performance analysis, slow-moving inventory analysis, and recommendation candidate analysis.
+This script performs customer value segmentation, churn risk analysis, customer behaviour analysis, revenue optimization, monthly revenue trend analysis, pricing insight, store performance analysis, slow-moving inventory analysis, and recommendation candidate analysis.
 
 Main outputs:
 
 ```text
 tables/customer_segments.csv
 tables/churn_risk_customers.csv
+tables/customer_behavior_patterns.csv
+tables/monthly_revenue_trend.csv
 tables/revenue_by_category.csv
 tables/pricing_insight.csv
 tables/store_performance_analysis.csv
@@ -302,6 +322,8 @@ exports/business_insights_summary.txt
 
 results/customer_segments.png
 results/churn_risk_customers.png
+results/customer_behavior_patterns.png
+results/monthly_revenue_trend_analysis.png
 results/revenue_by_category_analysis.png
 results/store_revenue_comparison.png
 results/slow_moving_inventory.png
@@ -361,9 +383,11 @@ The project covers four main analytical themes.
 ### Customer Analytics
 
 * Customer value segmentation
+* Historical customer value using total revenue
 * Customer revenue contribution
 * Average payment behaviour
 * Churn risk based on payment recency
+* Customer behaviour patterns based on activity grouping
 
 ### Revenue Optimization
 
@@ -371,6 +395,7 @@ The project covers four main analytical themes.
 * Rental volume by category
 * Average payment by category
 * Pricing-related insights
+* Monthly revenue trend analysis
 
 ### Inventory and Operations
 
@@ -394,23 +419,45 @@ The analysis showed that the high-value customer segment generated 26,009.63 in 
 
 Store performance was balanced. Store 1 generated 30,628.91 in revenue, while Store 2 generated 30,683.13. Store 1 had more customers, but Store 2 generated slightly higher total revenue.
 
-The slow-moving inventory analysis identified film copies with very low rental counts, including one item with zero rentals and zero revenue.
+The analysis also identified customer behaviour patterns, monthly revenue trends, and slow-moving inventory items. Slow-moving inventory included film copies with very low rental counts, including one item with zero rentals and zero revenue.
 
 ---
 
 ## 13. Main Recommendations
 
 1. Protect high-value customers through loyalty offers and personalized promotions.
-2. Increase engagement among active customers to improve repeat rentals.
-3. Promote high-performing categories such as Sports, Sci-Fi, Animation, Drama, and Comedy.
-4. Review low-performing categories such as Music, Travel, Children, Classics, and Horror.
-5. Monitor slow-moving inventory and reduce or promote underused stock.
-6. Improve store-level stock allocation based on revenue and rental efficiency.
-7. Start with a simple category-based recommendation approach before moving to advanced modelling.
+2. Monitor customers with longer payment gaps and use reactivation offers where necessary.
+3. Use customer activity groups to design repeat rental campaigns.
+4. Promote high-performing categories such as Sports, Sci-Fi, Animation, Drama, and Comedy.
+5. Review low-performing categories such as Music, Travel, Children, Classics, and Horror.
+6. Monitor monthly revenue trends to support campaign timing.
+7. Monitor slow-moving inventory and reduce or promote underused stock.
+8. Improve store-level stock allocation based on revenue and rental efficiency.
+9. Start with a simple category-based recommendation approach before moving to advanced modelling.
 
 ---
 
-## 14. Ethical Considerations and Limitations
+## 14. Executive Report
+
+The professional executive report is provided as:
+
+```text
+Oheneba_Oduro_Asare.pdf
+```
+
+The report is written for non-technical stakeholders and includes:
+
+* Executive summary
+* Business context and analytical objectives
+* Key findings
+* Visual evidence
+* Business recommendations
+* Technical appendix
+* Limitations and ethical considerations
+
+---
+
+## 15. Ethical Considerations and Limitations
 
 The dataset contains customer-related information, including names and emails. In a real business environment, such information should be handled responsibly and should not be exposed unnecessarily in public dashboards or reports.
 
@@ -420,13 +467,14 @@ The question scenario refers to three physical stores. However, the restored Pos
 
 ---
 
-## 15. Notes on Reproducibility
+## 16. Notes on Reproducibility
 
 The project is reproducible because:
 
 * Database credentials are defined using environment variables, with `.env.example` provided as a template
 * Services are managed using Docker Compose
 * Python dependencies are listed in `requirements.txt`
+* A separate Conda environment can be created for clean dependency management
 * Scripts are numbered and should be run in order
 * Outputs are saved into clearly named folders
 * The dashboard reads from generated analysis outputs
@@ -434,6 +482,6 @@ The project is reproducible because:
 
 ---
 
-## 16. Author
+## 17. Author
 
 Name: Oheneba Oduro-Asare
