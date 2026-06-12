@@ -20,9 +20,8 @@ from sqlalchemy import create_engine
 from dotenv import load_dotenv
 
 
-# ------------------------------------------------------------
-# 1. Load database connection details
-# ------------------------------------------------------------
+# Load database connection details
+
 load_dotenv()
 
 DB_USER = os.getenv("POSTGRES_USER")
@@ -32,9 +31,8 @@ DB_PORT = os.getenv("POSTGRES_PORT", "5432")
 DB_HOST = "localhost"
 
 
-# ------------------------------------------------------------
-# 2. Create database connection
-# ------------------------------------------------------------
+# Create database connection
+
 connection_url = (
     f"postgresql+psycopg2://{DB_USER}:{DB_PASSWORD}"
     f"@{DB_HOST}:{DB_PORT}/{DB_NAME}"
@@ -43,9 +41,8 @@ connection_url = (
 engine = create_engine(connection_url)
 
 
-# ------------------------------------------------------------
-# 3. Create output folders
-# ------------------------------------------------------------
+# Create output folders
+
 os.makedirs("merges", exist_ok=True)
 os.makedirs("exports", exist_ok=True)
 
@@ -54,16 +51,15 @@ try:
     with engine.connect() as connection:
         print("Database connection successful.")
 
-        # ------------------------------------------------------------
-        # 4. Customer revenue dataset
-        # ------------------------------------------------------------
+        
+        # Customer revenue dataset
         # Purpose:
         # This dataset combines customer and payment data to understand
         # customer value, payment frequency, and recency.
-        #
+        
         # Join key:
         # customer.customer_id = payment.customer_id
-        #
+        
         # LEFT JOIN is used so that all customers are retained,
         # even if some have no payment record.
         customer_revenue_query = """
@@ -102,16 +98,16 @@ try:
 
         print("Saved: merges/customer_revenue_dataset.csv")
 
-        # ------------------------------------------------------------
-        # 5. Film category revenue dataset
-        # ------------------------------------------------------------
+        
+        # Film category revenue dataset
+        
         # Purpose:
         # This dataset links films to categories, rentals, and payments.
         # It helps identify which film categories generate the most revenue.
-        #
+        
         # Join path:
         # payment -> rental -> inventory -> film -> film_category -> category
-        #
+        
         # COUNT(DISTINCT r.rental_id) is used to avoid possible duplicate
         # rental counts after joining payment records.
         film_category_revenue_query = """
@@ -160,17 +156,13 @@ try:
 
         print("Saved: merges/film_category_revenue_dataset.csv")
 
-        # ------------------------------------------------------------
-        # 6. Store performance dataset
-        # ------------------------------------------------------------
+        
+        # Store performance dataset
+
         # Purpose:
         # This dataset compares stores using customer count, inventory count,
         # rental count, and revenue.
-        #
-        # Important correction:
-        # Customer, inventory, rental, and payment metrics are calculated in
-        # separate grouped subqueries before being joined together.
-        # This prevents revenue from being multiplied by duplicate join paths.
+    
         store_performance_query = """
         WITH customer_counts AS (
             SELECT
@@ -229,16 +221,16 @@ try:
 
         print("Saved: merges/store_performance_dataset.csv")
 
-        # ------------------------------------------------------------
-        # 7. Inventory turnover dataset
-        # ------------------------------------------------------------
+        
+        # Inventory turnover dataset
+        
         # Purpose:
         # This dataset measures how often each film copy is rented.
         # It helps identify fast-moving and slow-moving inventory.
-        #
+        
         # Join path:
         # inventory -> film -> film_category -> category -> rental -> payment
-        #
+        
         # COUNT(DISTINCT r.rental_id) is used to avoid possible duplicate
         # rental counts after joining payment records.
         inventory_turnover_query = """
@@ -287,9 +279,9 @@ try:
 
         print("Saved: merges/inventory_turnover_dataset.csv")
 
-        # ------------------------------------------------------------
-        # 8. Validate merged outputs
-        # ------------------------------------------------------------
+        
+        # Validate merged outputs
+        
         validation_summary = {
             "customer_revenue_dataset_rows": len(customer_revenue_df),
             "film_category_revenue_dataset_rows": len(film_category_revenue_df),
@@ -301,18 +293,18 @@ try:
             "inventory_turnover_columns": len(inventory_turnover_df.columns),
         }
 
-        # ------------------------------------------------------------
-        # 9. Write relationship report
-        # ------------------------------------------------------------
+        
+        # Write relationship report
+        
         report = f"""
 DATA RELATIONSHIP AND MERGE REPORT
-==================================
+
 
 Purpose:
 This report documents the merged datasets created for the DVD Rental analysis.
 
 1. Customer Revenue Dataset
----------------------------
+
 Output file:
 merges/customer_revenue_dataset.csv
 
@@ -337,7 +329,7 @@ Columns created:
 
 
 2. Film Category Revenue Dataset
---------------------------------
+
 Output file:
 merges/film_category_revenue_dataset.csv
 
@@ -369,7 +361,7 @@ Columns created:
 
 
 3. Store Performance Dataset
-----------------------------
+
 Output file:
 merges/store_performance_dataset.csv
 
@@ -399,7 +391,7 @@ Columns created:
 
 
 4. Inventory Turnover Dataset
------------------------------
+
 Output file:
 merges/inventory_turnover_dataset.csv
 
@@ -431,7 +423,7 @@ Columns created:
 
 
 Assumptions and Limitations:
-----------------------------
+
 1. Revenue is measured using the payment.amount field.
 2. Rental activity is measured using distinct rental_id counts.
 3. Customer value is estimated using total payment amount.
