@@ -25,9 +25,9 @@ from sqlalchemy import create_engine
 from dotenv import load_dotenv
 
 
-# ------------------------------------------------------------
-# 1. Load database connection details
-# ------------------------------------------------------------
+
+# Load database connection details
+
 load_dotenv()
 
 DB_USER = os.getenv("POSTGRES_USER")
@@ -35,14 +35,13 @@ DB_PASSWORD = os.getenv("POSTGRES_PASSWORD")
 DB_NAME = os.getenv("POSTGRES_DB")
 DB_PORT = os.getenv("POSTGRES_PORT", "5432")
 
-# The Python scripts run on the local machine, so localhost is used
-# to connect to the PostgreSQL container through the exposed port.
+
 DB_HOST = "localhost"
 
 
-# ------------------------------------------------------------
-# 2. Create database connection
-# ------------------------------------------------------------
+
+# Create database connection
+
 connection_url = (
     f"postgresql+psycopg2://{DB_USER}:{DB_PASSWORD}"
     f"@{DB_HOST}:{DB_PORT}/{DB_NAME}"
@@ -51,16 +50,16 @@ connection_url = (
 engine = create_engine(connection_url)
 
 
-# ------------------------------------------------------------
-# 3. Create output folders
-# ------------------------------------------------------------
+
+# Create output folders
+
 os.makedirs("tables", exist_ok=True)
 os.makedirs("results", exist_ok=True)
 
 
-# ------------------------------------------------------------
-# 4. Define helper function for saving charts
-# ------------------------------------------------------------
+
+# Define helper function for saving charts
+
 def save_chart(filename):
     """
     Saves the current matplotlib chart into the results folder.
@@ -76,9 +75,8 @@ try:
     with engine.connect() as connection:
         print("Database connection successful.")
 
-        # ------------------------------------------------------------
-        # 5. Get all base tables
-        # ------------------------------------------------------------
+        
+        # Get all base tables
         # This query retrieves only real/base tables from the public schema.
         # Views are excluded because this stage focuses on the original tables.
         tables_query = """
@@ -95,9 +93,8 @@ try:
         print("Tables found:")
         print(table_names)
 
-        # ------------------------------------------------------------
-        # 6. Schema and data type inspection
-        # ------------------------------------------------------------
+        
+        # Schema and data type inspection
         # This section records each table's column names and data types.
         # It helps document the structure of the database before analysis.
         schema_results = []
@@ -125,9 +122,8 @@ try:
 
         print("Schema summary saved to tables/schema_summary.csv")
 
-        # ------------------------------------------------------------
-        # 7. Missing values check
-        # ------------------------------------------------------------
+        
+        # Missing values check
         # A sample of up to 1000 rows is checked from each table to identify
         # missing values without loading very large tables unnecessarily.
         missing_results = []
@@ -151,9 +147,8 @@ try:
 
         print("Missing values summary saved to tables/missing_values_summary.csv")
 
-        # ------------------------------------------------------------
-        # 8. Descriptive statistics for key numeric tables
-        # ------------------------------------------------------------
+        
+        # Descriptive statistics for key numeric tables
         # Descriptive statistics are calculated only for selected numeric tables
         # because these tables contain revenue, rental, inventory, and film metrics.
         key_numeric_tables = ["payment", "film", "rental", "inventory"]
@@ -182,9 +177,8 @@ try:
 
         print("Descriptive statistics saved to tables/descriptive_statistics.csv")
 
-        # ------------------------------------------------------------
-        # 9. Simple outlier check using IQR method
-        # ------------------------------------------------------------
+        
+        # Simple outlier check using IQR method
         # The IQR method identifies possible outliers by comparing values
         # against lower and upper statistical boundaries.
         outlier_results = []
@@ -219,9 +213,8 @@ try:
 
         print("Outlier summary saved to tables/outlier_summary.csv")
 
-        # ------------------------------------------------------------
-        # 10. Visualization 1: Monthly revenue trend
-        # ------------------------------------------------------------
+        
+        # Visualization 1: Monthly revenue trend
         # This chart shows how revenue changes over time by grouping payments by month.
         monthly_revenue_query = """
         SELECT
@@ -249,9 +242,8 @@ try:
 
         print("Chart saved: results/monthly_revenue.png")
 
-        # ------------------------------------------------------------
-        # 11. Visualization 2: Top film categories by revenue
-        # ------------------------------------------------------------
+        
+        # Visualization 2: Top film categories by revenue
         # This chart identifies which film categories generate the highest revenue.
         category_revenue_query = """
         SELECT
@@ -282,9 +274,8 @@ try:
 
         print("Chart saved: results/top_film_categories_by_revenue.png")
 
-        # ------------------------------------------------------------
-        # 12. Visualization 3: Top 10 customers by revenue
-        # ------------------------------------------------------------
+        
+        # Visualization 3: Top 10 customers by revenue
         # This chart identifies the customers contributing the most revenue.
         top_customers_query = """
         SELECT
@@ -312,9 +303,8 @@ try:
 
         print("Chart saved: results/top_customers_by_revenue.png")
 
-        # ------------------------------------------------------------
-        # 13. Visualization 4: Number of rentals by store
-        # ------------------------------------------------------------
+        
+        # Visualization 4: Number of rentals by store
         # This chart compares rental activity between stores.
         # DISTINCT is used for consistency with later analysis scripts.
         rentals_by_store_query = """
