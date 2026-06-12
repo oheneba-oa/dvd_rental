@@ -1,12 +1,12 @@
 
 DATA RELATIONSHIP AND MERGE REPORT
-==================================
+
 
 Purpose:
 This report documents the merged datasets created for the DVD Rental analysis.
 
 1. Customer Revenue Dataset
----------------------------
+
 Output file:
 merges/customer_revenue_dataset.csv
 
@@ -31,7 +31,7 @@ Columns created:
 
 
 2. Film Category Revenue Dataset
---------------------------------
+
 Output file:
 merges/film_category_revenue_dataset.csv
 
@@ -63,7 +63,7 @@ Columns created:
 
 
 3. Store Performance Dataset
-----------------------------
+
 Output file:
 merges/store_performance_dataset.csv
 
@@ -93,7 +93,7 @@ Columns created:
 
 
 4. Inventory Turnover Dataset
------------------------------
+
 Output file:
 merges/inventory_turnover_dataset.csv
 
@@ -125,7 +125,7 @@ Columns created:
 
 
 Assumptions and Limitations:
-----------------------------
+
 1. Revenue is measured using the payment.amount field.
 2. Rental activity is measured using distinct rental_id counts.
 3. Customer value is estimated using total payment amount.

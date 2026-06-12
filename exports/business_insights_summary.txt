@@ -4,16 +4,17 @@ BUSINESS INSIGHTS SUMMARY
 
 1. Customer Analytics
 ---------------------
-The customer base was segmented into value groups using total revenue.
+The customer base was grouped into value segments using total revenue.
+Total historical revenue was used as a simple measure of customer lifetime value.
+
 The segment contributing the highest revenue is:
 
 Segment: High Value
 Total Revenue: 26009.63
 Number of Customers: 200
 
-This suggests that customer value is not evenly distributed. Management should
-protect high-value customers through loyalty offers, personalized promotions,
-and early access to popular titles.
+This shows that customer value is not evenly distributed. The business should
+protect high-value customers through loyalty offers and targeted promotions.
 
 Churn Risk:
 The largest churn risk group is:
@@ -21,8 +22,18 @@ The largest churn risk group is:
 Risk Group: Low Risk
 Number of Customers: 598
 
-Customers with longer periods since their last payment should be monitored and,
-where necessary, targeted with reactivation campaigns.
+Customers with longer periods since their last payment should be monitored and
+targeted with reactivation offers where necessary.
+
+Customer Behaviour:
+The activity group contributing the highest revenue is:
+
+Activity Group: High Activity
+Total Revenue: 26009.63
+Total Activity: 26009.63
+
+This shows that customer activity is useful to track when planning repeat rental
+campaigns.
 
 
 2. Revenue Optimization
@@ -39,9 +50,15 @@ Category: Music
 Total Revenue: 3071.52
 Total Rentals: 830
 
-High-performing categories should receive more visibility in promotions, while
-low-performing categories should be reviewed for pricing, demand, and inventory
-allocation.
+The strongest revenue month is:
+
+Month: 2007-04-01 00:00:00
+Total Revenue: 28559.46
+Number of Payments: 6754
+
+High-performing categories should receive more promotion. Low-performing
+categories should be reviewed for pricing, demand, and inventory allocation.
+Monthly revenue trends should also be monitored for planning campaigns.
 
 
 3. Inventory and Operations
@@ -53,27 +70,28 @@ Total Revenue: 30683.13
 Total Rentals: 8121.0
 Total Inventory Items: 2311.0
 
-Store-level differences should be investigated further to understand whether
-performance is driven by customer base, inventory selection, or rental activity.
+Store-level differences should be reviewed to understand whether performance is
+driven by customer base, inventory selection, or rental activity.
 
 
 4. Innovation / Custom Analysis
 -------------------------------
-A simple recommendation strategy was developed using category revenue and rental
-performance. Categories with high revenue and high rental activity should be
-prioritized for customer recommendations and promotional campaigns.
+A simple recommendation approach was created using category revenue and rental
+performance. Strong categories can be used as the first basis for customer
+recommendations and promotional campaigns.
 
 Recommended action:
-Use top-performing categories as the basis for a basic recommendation engine.
-For example, if a customer rents from a strong category, the company can suggest
-other films from the same high-performing category.
+If a customer rents from a strong category, the business can suggest other films
+from that same high-performing category.
 
 
 Quantified Business Recommendations
 -----------------------------------
 1. Protect high-value customers with loyalty campaigns and targeted offers.
 2. Monitor customers with longer payment gaps and use reactivation offers where necessary.
-3. Promote the strongest film categories more aggressively.
-4. Review low-performing categories for possible pricing or inventory changes.
-5. Monitor slow-moving inventory and consider reducing duplicate copies.
-6. Compare store-level inventory efficiency to improve stock allocation.
+3. Use customer activity groups to design repeat rental campaigns.
+4. Promote the strongest film categories more aggressively.
+5. Review low-performing categories for possible pricing or inventory changes.
+6. Monitor monthly revenue trends to support campaign timing.
+7. Monitor slow-moving inventory and consider reducing duplicate copies.
+8. Compare store-level inventory efficiency to improve stock allocation.
